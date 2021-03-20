@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_jwt',
     'auth_',
-
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'midterm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_midterm',
+        'NAME': 'django_midterm2',
         'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': 'localhost',

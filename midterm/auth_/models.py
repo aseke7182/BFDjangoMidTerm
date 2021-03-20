@@ -35,12 +35,17 @@ class MainUserManager(BaseUserManager):
 
 
 class MainUser(AbstractBaseUser, PermissionsMixin):
+    USER_ROLE = (
+        ('SUPERADMIN', 'superadmin'),
+        ('GUEST', 'guest'),
+    )
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField(_('is_staff'), default=False)
+    roles = models.CharField(max_length=200, choices=USER_ROLE, default='GUEST')
 
     objects = MainUserManager()
 
@@ -50,3 +55,10 @@ class MainUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(MainUser, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
